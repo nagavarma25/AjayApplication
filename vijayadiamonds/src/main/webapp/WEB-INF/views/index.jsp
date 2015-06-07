@@ -21,7 +21,9 @@
 <script src="js/app.js"></script>
 <script src="js/controllers/search_controller.js"></script>
 <script src="js/controllers/item_controller.js"></script>
+<script src="js/controllers/customer_controller.js"></script>
 <script src="js/controllers/transaction_controller.js"></script>
+<script src="js/controllers/custtrans_controller.js"></script>
 <script src="js/controllers/billgen_controller.js"></script>
 <script src="js/filters/camelcase_filter.js"></script>
 <script src="js/appconfig.js"></script>

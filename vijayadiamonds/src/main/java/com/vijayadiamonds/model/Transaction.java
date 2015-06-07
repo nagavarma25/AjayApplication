@@ -86,10 +86,9 @@ public class Transaction {
 	 * @param lastUpdatedDate
 	 * @param comments
 	 */
-	public Transaction(Long id, Customer customer, Long totalAmount,
+	public Transaction(Customer customer, Long totalAmount,
 			Long paidAmount, Calendar transactionDate,
 			Calendar lastUpdatedDate, String comments) {
-		this.id = id;
 		this.customer = customer;
 		this.totalAmount = totalAmount;
 		this.paidAmount = paidAmount;

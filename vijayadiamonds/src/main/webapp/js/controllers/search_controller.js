@@ -12,7 +12,7 @@ angular.module('routerApp').controller(
 
 			$scope.getTransactions = function() {
 				var customerId = $scope.searchcustomer.id;
-				// alert($scope.searchcustomer.id);
+				 //alert($scope.searchcustomer.id);
 				$location.path('customertransactions/' + customerId);
 			}
 		});

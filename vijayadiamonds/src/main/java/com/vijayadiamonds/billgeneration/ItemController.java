@@ -21,6 +21,7 @@ import com.vijayadiamonds.model.Item;
 import com.vijayadiamonds.model.Item.Shape;
 import com.vijayadiamonds.resource.ItemResource;
 import com.vijayadiamonds.service.ItemService;
+import com.vijayadiamonds.service.ShapeService;
 
 @Controller
 @RequestMapping(value = "/item")
@@ -28,6 +29,9 @@ public class ItemController {
 
 	@Autowired
 	private ItemService itemService;
+	
+	@Autowired
+	private ShapeService shapeService;
 
 	@Autowired
 	private ItemResourceMapper itemResourceMapper;
@@ -57,7 +61,7 @@ public class ItemController {
 		Long unitPrice = Objects.requireNonNull(itemResource.getUnitPrice(),
 				"Unit price of the item cannot be null");
 		Item item = new Item(itemName, unit, unitPrice,
-				getShapeNameFromValue(itemShape));
+				shapeService.getShapeNameFromValue(itemShape));
 		return itemService.addItem(item);
 	}
 
@@ -86,22 +90,12 @@ public class ItemController {
 	@RequestMapping(value = "/getbynameandshape", method = RequestMethod.GET)
 	@ResponseBody
 	public Item getItemByNameAndShape(@RequestParam("name") String name,
-			@RequestParam("shape") Shape shape) {
+			@RequestParam("shape") String shape) {
 		System.out.println(name + shape);
-		Item i = itemService.getItemByNameAndShape(name, shape);
+		Item i = itemService.getItemByNameAndShape(name, shapeService.getShapeNameFromValue(shape));
 		// System.out.println(i.getUnit());
 		return i;
 	}
 
-	public Shape getShapeNameFromValue(String value) {
-		Shape shape = null;
-		for (Shape s : Shape.values()) {
-			if (s.toString().equals(value)) {
-				shape = s;
-				break;
-			}
-		}
-		return shape;
-	}
 
 }

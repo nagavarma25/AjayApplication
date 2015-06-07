@@ -1,6 +1,5 @@
 package com.vijayadiamonds.service.impl;
 
-import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@
         <form name="addItem_form" novalidate>
             <legend>Add Item</legend>
             <div class="form-group ">
-                Name: <input ng-model="item.name" type="text"
+                 <input ng-model="item.name" type="text"
                     class="form-control  input-sm"
                     placeholder="Item name" name="name" required>
 
@@ -17,7 +17,7 @@
             </div>
 
             <div class="form-group ">
-                Shape:<br /> <input type="text" ng-model="item.shape"
+                 <input type="text" ng-model="item.shape"
                     typeahead="shape| camelCase for shape in shapes | filter:$viewValue "
                     class="form-control  input-sm" placeholder="shape" required name = "shape">
 
@@ -29,7 +29,7 @@
                 </small>
             </div>
             <div class="form-group ">
-                Unit: <br /> <input type="text" ng-model="item.unit"
+              <input type="text" ng-model="item.unit"
                     typeahead="unit for unit in units | filter:$viewValue "
                     class="form-control  input-sm" placeholder="Unit" required name = "unit">
                 <small class="error"
@@ -40,7 +40,7 @@
                 </small>
             </div>
             <div class="form-group ">
-                Cost/Unit <input type="number" ng-model="item.unitPrice"
+                <input type="number" ng-model="item.unitPrice"
                     class="form-control  input-sm"
                     placeholder="Unit price" required name = "unitPrice"> <small
                     class="error"

@@ -44,8 +44,6 @@ angular.module("routerApp").controller("billGenController", function($scope, $ht
 	};
 
 	$scope.getItemByNameandShape = function() {
-		//alert($scope.selectedItemName);
-		//alert($scope.selectedItemShape);
 		$http.get(
 				"/billgeneration/item/getbynameandshape?name="
 						+ $scope.selectedItem.name + "&shape="

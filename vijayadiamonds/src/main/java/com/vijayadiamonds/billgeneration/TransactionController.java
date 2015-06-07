@@ -9,61 +9,58 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.vijayadiamonds.model.Item;
 import com.vijayadiamonds.model.Sale;
 import com.vijayadiamonds.model.Transaction;
-import com.vijayadiamonds.model.Item.Shape;
 import com.vijayadiamonds.resource.Bill;
 import com.vijayadiamonds.resource.ItemResource;
 import com.vijayadiamonds.service.ItemService;
 import com.vijayadiamonds.service.SaleService;
+import com.vijayadiamonds.service.ShapeService;
 import com.vijayadiamonds.service.TransactionService;
 
 @Controller
 @RequestMapping(value = "/transaction")
 public class TransactionController {
-	
+
 	@Autowired
 	private TransactionService transactionService;
 	@Autowired
 	private ItemService itemService;
 	@Autowired
 	private SaleService saleService;
+
+	@Autowired
+	private ShapeService shapeService;
+
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String loadAddPage(Locale locale, Model model) {
 		return "addtransaction";
 	}
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String loadEditPage(Locale locale, Model model) {
 		return "edittransaction";
 	}
-	
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public void saveTransaction(@RequestBody Bill bill) {
-		System.out.println("IN");
-		Transaction transaction = new Transaction();
-		System.out.println(bill.getCustomer().getId());
-		transaction.setCustomer(bill.getCustomer());
-		transaction.setPaidAmount(bill.getPaidAmount());
-		transaction.setTotalAmount(bill.getTotalAmount());
-		transaction.setTransactionDate(Calendar.getInstance());
-		transaction.setLastUpdatedDate(Calendar.getInstance());
-		Transaction persisted = transactionService.addTransaction(transaction);
+	@ResponseBody
+	public Long saveTransaction(@RequestBody Bill bill) {
+		Transaction transaction = new Transaction(bill.getCustomer(),
+				bill.getPaidAmount(), bill.getTotalAmount(),
+				Calendar.getInstance(), Calendar.getInstance(), "");
+		transactionService.addTransaction(transaction);
 		for (ItemResource itemResource : bill.getItemResources()) {
-			Sale sale = new Sale();
-			sale.setQuantity(itemResource.getQuantity());
-			sale.setSellingPrice(itemResource.getSellingPrice());
-			System.out.println(Shape.valueOf(itemResource.getShape()));
-			sale.setItem(itemService.getItemByNameAndShape(
-					itemResource.getName(),
-					Shape.valueOf(itemResource.getShape())));
-			sale.setTransaction(persisted);
+			Item item = itemService
+					.getItemByNameAndShape(itemResource.getName(), shapeService
+							.getShapeNameFromValue(itemResource.getShape()));
+			Sale sale = new Sale(transaction, item, itemResource.getQuantity(),
+					itemResource.getSellingPrice());
 			saleService.addSale(sale);
-
 		}
-		System.out.println(transaction.getId());
+		return transaction.getId();
 	}
 
 	@RequestMapping(value = "/addSale", method = RequestMethod.GET)

@@ -29,7 +29,7 @@ angular.module('routerApp').config(
 			.state('addcustomer', {
 				url : '/addcustomer',
 				templateUrl : 'customer/add',
-				controller : 'itemController'
+				controller : 'customerController'
 			})
 
 			// Edit a customer
@@ -42,7 +42,7 @@ angular.module('routerApp').config(
 			.state('addtransaction', {
 				url : '/addtransaction',
 				templateUrl : 'transaction/add',
-				controller : 'itemController'
+				controller : 'transactionController'
 			})
 
 			// Edit a transaction
@@ -52,11 +52,11 @@ angular.module('routerApp').config(
 				controller : 'itemController'
 			})
 
-			// customer transactions
+			// customer transactions 
 			.state('customertransactions', {
 				url : '/customertransactions/:customerId',
 				templateUrl : 'customer/transactions',
-				controller : 'transactionController'
+				controller : 'custtransactionController'
 			});
 
 		});

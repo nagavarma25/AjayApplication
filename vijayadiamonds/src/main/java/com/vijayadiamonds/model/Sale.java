@@ -62,9 +62,8 @@ public class Sale {
 	 * @param quantity
 	 * @param sellingPrice
 	 */
-	public Sale(Long id, Transaction transaction, Item item, Long quantity,
+	public Sale(Transaction transaction, Item item, Long quantity,
 			Long sellingPrice) {
-		this.id = id;
 		this.transaction = transaction;
 		this.item = item;
 		this.quantity = quantity;

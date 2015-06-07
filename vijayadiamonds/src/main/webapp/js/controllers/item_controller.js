@@ -17,8 +17,10 @@ angular.module('routerApp').controller(
 				$http.post("/billgeneration/item/add", $scope.item).success(
 						function(response) {
 							$scope.message = "Item added";
+							$scope.item = {};
+							$scope.addItem_form.reset= true;
 						}).error(function(error) {
-					$scope.message = error;
+					$scope.message = "Item could not be added";
 				})
 			};
 		});

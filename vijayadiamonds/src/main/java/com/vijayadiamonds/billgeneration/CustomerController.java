@@ -1,5 +1,6 @@
 package com.vijayadiamonds.billgeneration;
 
+import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class CustomerController {
 	public String loadAddPage() {
 		return "addcustomer";
 	}
-	
+
 	@RequestMapping(value = "edit", method = RequestMethod.GET)
 	public String loadEditPage() {
 		return "editcustomer";
@@ -38,7 +39,11 @@ public class CustomerController {
 	@RequestMapping(value = "add", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Customer addCustomer(@RequestBody Customer customer) {
-		System.out.println(customer.getName());
+		Objects.requireNonNull(customer.getName(), "Customer name required");
+		Objects.requireNonNull(customer.getPhoneNumber(),
+				" Customer phone number required");
+		Objects.requireNonNull(customer.getAddress(),
+				"Customer address required");
 		return customerService.addCustomer(customer);
 
 	}
@@ -65,10 +70,9 @@ public class CustomerController {
 			@PathVariable Long customerId) {
 		return customerService.getCustomer(customerId).getTransactions();
 	}
-	
-	
+
 	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
-    public String loadCustomerTransactionPage() {
-        return "customertransactions";
-    }
+	public String loadCustomerTransactionPage() {
+		return "customertransactions";
+	}
 }
