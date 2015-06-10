@@ -48,12 +48,11 @@ public class CustomerController {
 
 	}
 
-	@RequestMapping(value = "/get", produces = "application/json")
+	@RequestMapping(value = "/{customerId}", produces = "application/json")
 	@ResponseBody
-	public Customer getCustomer() {
+	public Customer getCustomer(@PathVariable Long customerId) {
 		System.out.println("get");
-		Customer cust = customerService.getCustomer(4L);
-		System.out.println(cust.getTransactions().size());
+		Customer cust = customerService.getCustomer(customerId);
 		return cust;
 	}
 

@@ -2,7 +2,6 @@
 angular.module('routerApp').controller(
 		"searchController",
 		function($scope, $http, $location) {
-			alert("search controller");
 			$http.get("/billgeneration/customer/all").success(
 					function(response) {
 						$scope.scustomers = response;
@@ -12,7 +11,9 @@ angular.module('routerApp').controller(
 
 			$scope.getTransactions = function() {
 				var customerId = $scope.searchcustomer.id;
-				 //alert($scope.searchcustomer.id);
+				//var customer = $scope.searchcustomer;
+				 //alert(customer.name);				 alert(customer.phoneNumber);
+				 //alert(customer.address);
 				$location.path('customertransactions/' + customerId);
 			}
 		});
