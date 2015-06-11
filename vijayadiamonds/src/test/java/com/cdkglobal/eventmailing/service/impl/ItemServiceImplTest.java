@@ -4,7 +4,7 @@ import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 import junit.framework.Assert;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang.reflect.FieldUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

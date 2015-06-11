@@ -1,5 +1,8 @@
 package com.vijayadiamonds.resource;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 public class ItemResource {
 
 	private Long id;
@@ -85,5 +88,26 @@ public class ItemResource {
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
+    
+    @Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(name).append(unit)
+				.append(unitPrice).hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return false;
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		ItemResource item = (ItemResource) obj;
+		return new EqualsBuilder().append(name, item.name)
+				.append(unit, item.unit).append(unitPrice, item.unitPrice)
+				.isEquals();
+	}
     
 }
