@@ -12,7 +12,6 @@
       <entry name="!?*.flex" />
       <entry name="!?*.kt" />
       <entry name="!?*.clj" />
-      <entry name="!?*.aj" />
     </wildcardResourcePatterns>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="false">
@@ -26,8 +25,8 @@
         <module name="billgeneration" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
-      <module name="billgeneration" target="1.6" />
+    <bytecodeTargetLevel>
+      <module name="billgeneration" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -5,65 +5,65 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class ItemResource {
 
-	private Long id;
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private String unit;
+    private String unit;
 
-	private Long unitPrice;
-	
-	private Long sellingPrice;
-	
-	private Long quantity;
-	
-	private String shape;
-	
-	public ItemResource(){
-		
-	}
+    private Long unitPrice;
 
-	public ItemResource(Long id, String name,String shape, String unit, Long unitPrice, Long sellingPrice, Long quantity) {
-		this.id = id;
-		this.name = name;
-		this.shape = shape;
-		this.unit = unit;
-		this.unitPrice = unitPrice;
-		this.sellingPrice = sellingPrice;
-		this.quantity = quantity;
-	}
+    private Long sellingPrice;
 
-	public Long getId() {
-		return id;
-	}
+    private Long quantity;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String shape;
 
-	public String getName() {
-		return name;
-	}
+    public ItemResource() {
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    }
 
-	public String getUnit() {
-		return unit;
-	}
+    public ItemResource(Long id, String name, String shape, String unit, Long unitPrice, Long sellingPrice, Long quantity) {
+        this.id = id;
+        this.name = name;
+        this.shape = shape;
+        this.unit = unit;
+        this.unitPrice = unitPrice;
+        this.sellingPrice = sellingPrice;
+        this.quantity = quantity;
+    }
 
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Long getUnitPrice() {
-		return unitPrice;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setUnitPrice(Long unitPrice) {
-		this.unitPrice = unitPrice;
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public Long getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Long unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 
     public Long getSellingPrice() {
         return sellingPrice;
@@ -88,26 +88,26 @@ public class ItemResource {
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
-    
-    @Override
-	public int hashCode() {
-		return new HashCodeBuilder().append(name).append(unit)
-				.append(unitPrice).hashCode();
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (obj == this)
-			return false;
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		ItemResource item = (ItemResource) obj;
-		return new EqualsBuilder().append(name, item.name)
-				.append(unit, item.unit).append(unitPrice, item.unitPrice)
-				.isEquals();
-	}
-    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(name).append(unit)
+                .append(unitPrice).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (obj == this)
+            return false;
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ItemResource item = (ItemResource) obj;
+        return new EqualsBuilder().append(name, item.name)
+                .append(unit, item.unit).append(unitPrice, item.unitPrice)
+                .isEquals();
+    }
+
 }

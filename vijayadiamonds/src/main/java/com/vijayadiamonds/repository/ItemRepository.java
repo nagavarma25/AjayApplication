@@ -1,25 +1,23 @@
 package com.vijayadiamonds.repository;
 
-import java.util.Set;
-
+import com.vijayadiamonds.model.Item;
+import com.vijayadiamonds.model.Item.Shape;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.vijayadiamonds.model.Item;
-import com.vijayadiamonds.model.Item.Shape;
+import java.util.Set;
 
 /**
  * Repository class used to interact with {@link Item} entity
- * 
- * @author Janardhan
  *
+ * @author Janardhan
  */
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
-	Set<Item> findAll();
+    Set<Item> findAll();
 
-	@Query("select i.name from Item i")
-	Set<String> getItemNames();
+    @Query("select i.name from Item i")
+    Set<String> getItemNames();
 
-	Item findByNameAndShape(String name , Shape shape);
+    Item findByNameAndShape(String name, Shape shape);
 }

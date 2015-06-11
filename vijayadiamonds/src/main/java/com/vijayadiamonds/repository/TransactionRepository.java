@@ -1,14 +1,13 @@
 package com.vijayadiamonds.repository;
 
-import java.util.List;
-
-import org.springframework.data.repository.PagingAndSortingRepository;
-
 import com.vijayadiamonds.model.Customer;
 import com.vijayadiamonds.model.Transaction;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.util.List;
 
 public interface TransactionRepository extends
-		PagingAndSortingRepository<Transaction, Long> {
+        PagingAndSortingRepository<Transaction, Long> {
 
-	List<Transaction> findByCustomer(Customer customer);
+    List<Transaction> findByCustomer(Customer customer);
 }
