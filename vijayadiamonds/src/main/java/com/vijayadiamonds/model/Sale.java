@@ -128,9 +128,16 @@ public class Sale {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Sale) {
-            Sale sale = (Sale) obj;
-            return new EqualsBuilder().append(item, sale.item).append(transaction, sale.transaction).append(quantity, sale.quantity).append(sellingPrice, sale.sellingPrice).isEquals();
-        } else return false;
+        if (obj == null)
+            return false;
+        if (obj == this)
+            return false;
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Sale sale = (Sale) obj;
+        return new EqualsBuilder().append(item, sale.item).append(transaction, sale.transaction).append(quantity, sale.quantity).append(sellingPrice, sale.sellingPrice).isEquals();
+
     }
 }
