@@ -2,7 +2,7 @@
 angular.module('routerApp').controller(
 		"searchController",
 		function($scope, $http, $location) {
-			$http.get("/billgeneration/customer/all").success(
+			$http.get("/customer/all").success(
 					function(response) {
 						$scope.scustomers = response;
 					}).error(function(error) {

@@ -5,19 +5,19 @@ angular.module('routerApp').controller(
 
 			$scope.customerId = $stateParams.customerId;
 			//alert($scope.customer.id);
-			$http.get("/billgeneration/customer/" + $stateParams.customerId)
+			$http.get("/customer/" + $stateParams.customerId)
 					.success(function(response) {
 						$scope.customer = response;
 					});
 			$http.get(
-					"/billgeneration/customer/" + $stateParams.customerId
+					"/customer/" + $stateParams.customerId
 							+ "/transactions").success(function(response) {
 				$scope.transactions = response;
 			});
 
 			$scope.expand = function() {
 				var exp = $scope.collapseone;
-				alert(exp);
+				//alert(exp);
 				$scope.collapseone = !exp;
 			}
 		});

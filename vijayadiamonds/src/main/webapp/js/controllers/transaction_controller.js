@@ -7,22 +7,22 @@ angular.module('routerApp').controller(
 			$scope.selectedItem = "";
 			$scope.actualPrice = 0;
 			$scope.selectedQuantity = 0;
-			$http.get("/billgeneration/item/itemnames").success(function(response) {
+			$http.get("/item/itemnames").success(function(response) {
 				$scope.itemnames = response;
 			}).error(function(error) {
 				$scope.message = "Error in fetching";
 			});
-			$http.get("/billgeneration/item/allshapes").success(function(response) {
+			$http.get("/item/allshapes").success(function(response) {
 				$scope.shapes = response;
 			}).error(function(error) {
 				$scope.message = "Error in fetching";
 			});
-			$http.get("/billgeneration/item/all").success(function(response) {
+			$http.get("/item/all").success(function(response) {
 				$scope.items = response;
 			}).error(function(error) {
 				$scope.message = "Error in fetching";
 			});
-			$http.get("/billgeneration/customer/all").success(function(response) {
+			$http.get("/customer/all").success(function(response) {
 				$scope.customers = response;
 			}).error(function(error) {
 				$scope.message = "Error in fetching";
@@ -49,7 +49,7 @@ angular.module('routerApp').controller(
 
 			$scope.getItemByNameandShape = function() {
 				$http.get(
-						"/billgeneration/item/getbynameandshape?name="
+						"/item/getbynameandshape?name="
 								+ $scope.selectedItem.name + "&shape="
 								+ $scope.selectedItem.shape).success(function(response) {
 					$scope.item = response;
@@ -64,7 +64,7 @@ angular.module('routerApp').controller(
 				$scope.bill.itemResources = $scope.actualItems;
 				$scope.bill.customer = $scope.customer;
 				alert($scope.customer.id);
-				$http.post("/billgeneration/transaction/add", $scope.bill).success(
+				$http.post("/transaction/add", $scope.bill).success(
 						function(response) {
 							$scope.actualItems = [];
 							$scope.divshow = true;

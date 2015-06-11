@@ -4,7 +4,7 @@ angular.module('routerApp').controller(
 		function($scope, $http) {
 			$scope.customer = {};
 			$scope.addcustomer = function() {
-				$http.post("/billgeneration/customer/add", $scope.customer)
+				$http.post("/customer/add", $scope.customer)
 						.success(function(response) {
 							$scope.message = "Customer added.";
 							$scope.customer = {};

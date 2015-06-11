@@ -49,7 +49,7 @@ public class TransactionController {
 	@ResponseBody
 	public Long saveTransaction(@RequestBody Bill bill) {
 		Transaction transaction = new Transaction(bill.getCustomer(),
-				bill.getPaidAmount(), bill.getTotalAmount(),
+				 bill.getTotalAmount(),bill.getPaidAmount(),
 				Calendar.getInstance(), Calendar.getInstance(), "");
 		transactionService.addTransaction(transaction);
 		for (ItemResource itemResource : bill.getItemResources()) {

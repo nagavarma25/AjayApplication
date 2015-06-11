@@ -39,7 +39,7 @@ public class ItemController {
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Set<ItemResource> getAllItems() {
-		Set<ItemResource> resources = itemService.getAllItems().stream()
+		Set resources = itemService.getAllItems().stream()
 				.map(itemResourceMapper).collect(Collectors.toSet());
 		return resources;
 	}

@@ -4,7 +4,7 @@ angular.module('routerApp').controller(
 		function($scope, $http) {
 			$scope.item = {};
 
-			$http.get("/billgeneration/item/allshapes").success(
+			$http.get("/item/allshapes").success(
 					function(response) {
 						$scope.shapes = response;
 					}).error(function(error) {
@@ -14,7 +14,7 @@ angular.module('routerApp').controller(
 			$scope.units = [ 'Carrat', 'Gram', 'Quantity' ];
 
 			$scope.additem = function() {
-				$http.post("/billgeneration/item/add", $scope.item).success(
+				$http.post("/item/add", $scope.item).success(
 						function(response) {
 							$scope.message = "Item added";
 							$scope.item = {};
