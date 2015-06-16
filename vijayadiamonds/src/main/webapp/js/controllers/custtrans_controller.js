@@ -4,30 +4,30 @@ angular.module('routerApp').controller(
         $scope.oneAtATime = true;
 
         $scope.customerId = $stateParams.customerId;
-        $scope.individulaBalances=[];
+        $scope.transactionBalances = [];
         //alert($scope.customer.id);
         $http.get("/customer/" + $stateParams.customerId)
             .success(function (response) {
                 $scope.customer = response;
-                $scope.balanceAmount = calculateBalanceAmount($scope.customer.transactions);
+                $scope.totalDebt = calculateTotalDebt($scope.customer.transactions);
             });
 
-        calculateBalanceAmount = function (transactions) {
+        calculateTotalDebt = function (transactions) {
             var paidAmount = 0;
             var totalAmount = 0;
 
             for (i = 0; i < transactions.length; i++) {
-                $scope.individulaBalances[i]=transactions[i].totalAmount - transactions[i].paidAmount;
-                //alert($scope.individulaBalances[i]);
+                $scope.transactionBalances[i] = transactions[i].totalAmount - transactions[i].paidAmount;
                 paidAmount = paidAmount + transactions[i].paidAmount;
                 totalAmount = totalAmount + transactions[i].totalAmount;
             }
-            return totalAmount-paidAmount;
+            return totalAmount - paidAmount;
         };
 
-        $scope.settleTransaction =function(transId,paidAmount,index){
-            $scope.balanceAmount = $scope.balanceAmount - paidAmount;
-            $scope.individulaBalances[index] = 0;
+        $scope.settleTransaction = function (transId, index) {
+            $http.put('/transaction/' + transId + '/settle').success(function () {
+                $scope.totalDebt = $scope.totalDebt - $scope.transactionBalances[index];
+                $scope.transactionBalances[index] = 0;
+            });
         }
-
     });

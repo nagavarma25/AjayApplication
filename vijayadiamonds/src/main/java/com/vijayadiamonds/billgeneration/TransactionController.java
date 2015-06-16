@@ -12,10 +12,7 @@ import com.vijayadiamonds.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -71,5 +68,13 @@ public class TransactionController {
         sale.setSellingPrice(200L);
         sale.setTransaction(transactionService.getTransaction(7L));
         saleService.addSale(sale);
+    }
+
+    @RequestMapping(value = "/{transactionId}/settle", method = RequestMethod.PUT)
+    @ResponseBody
+    public Long settleTransaction(@PathVariable Long transactionId) {
+        System.out.println("Inside put method");
+        transactionService.settleTransaction(transactionId);
+        return transactionId;
     }
 }

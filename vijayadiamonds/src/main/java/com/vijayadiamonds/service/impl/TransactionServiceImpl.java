@@ -30,4 +30,11 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.findByCustomer(customer);
     }
 
+    @Override
+    public Transaction settleTransaction(Long transactionId) {
+        Transaction transaction = transactionRepository.findOne(transactionId);
+        transaction.setPaidAmount(transaction.getTotalAmount());
+        transactionRepository.save(transaction);
+        return transaction;
+    }
 }

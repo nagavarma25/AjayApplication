@@ -53,7 +53,7 @@
         <li><a ui-sref="edittransaction">Edit Transaction</a></li>
     </ul>
     <!-- Main content to display -->
-    <div class="col-md-9 jumbotron">
+    <div class="container col-md-9">
         <div ui-view></div>
     </div>
 </div>

@@ -12,4 +12,6 @@ public interface TransactionService {
     Transaction getTransaction(Long id);
 
     List<Transaction> findByCustomer(Customer customer);
+
+    public Transaction settleTransaction(Long transactionId);
 }
