@@ -9,6 +9,8 @@ import com.vijayadiamonds.service.ItemService;
 import com.vijayadiamonds.service.SaleService;
 import com.vijayadiamonds.service.ShapeService;
 import com.vijayadiamonds.service.TransactionService;
+import com.vijayadiamonds.utils.GenerateBill;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +58,8 @@ public class TransactionController {
                     itemResource.getSellingPrice());
             saleService.addSale(sale);
         }
+       GenerateBill generateBill = new GenerateBill();
+       generateBill.generateBill(bill);
         return transaction.getId();
     }
 

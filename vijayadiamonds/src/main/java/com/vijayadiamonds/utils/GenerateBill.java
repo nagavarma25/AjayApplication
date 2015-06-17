@@ -1,23 +1,35 @@
-package com.vijayadiamonds.billgeneration;
+package com.vijayadiamonds.utils;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Set;
 
-import com.itextpdf.text.*;
+import com.itextpdf.text.Anchor;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Chapter;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.vijayadiamonds.model.Sale;
-import com.vijayadiamonds.model.Transaction;
+import com.vijayadiamonds.resource.Bill;
+import com.vijayadiamonds.resource.ItemResource;
+//import com.itextpdf.text.List;
 
 /**
- * Created by Janardhan on 14-06-2015.
+ * Created by ravadaj on 17/06/15.
  */
-public class FirstPdf {
+public class GenerateBill {
 
-    private static String FILE = "D:/New folder/Bills/FirstPdf.pdf";
+    // private static String FILE = "D:/New folder/Bills/FirstPdf.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 7,
@@ -30,32 +42,18 @@ public class FirstPdf {
             Font.NORMAL);
 
     public static void main(String[] args) {
-        try {
 
-            Chunk estimate = new Chunk("ESTIMATE", smallBold);
-            // document.add(estimate);
-
-            // document.close();
-            /*
-             * addMetaData(document); addTitlePage(document);
-             * addContent(document);
-             */
-            // document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void generateBill(Transaction transaction) {
+    public void generateBill(Bill transaction) {
         try {
             Rectangle rect = new Rectangle(270, 240);
             rect.setBorder(Rectangle.BOX);
             rect.setBorderWidth(2);
             Document document = new Document(rect, 10, 10, 10, 10);
-            PdfWriter.getInstance(document, new FileOutputStream(transaction
-                    .getCustomer().getName()
-                    + transaction.getTransactionDate()
-                    + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(
+                    "/Users/ravadaj/Desktop/"
+                            + transaction.getCustomer().getName() + ".pdf"));
             document.open();
             generateHeader(transaction, document);
             generateBody(transaction, document);
@@ -66,7 +64,7 @@ public class FirstPdf {
         }
     }
 
-    private void generateHeader(Transaction transaction, Document document) {
+    private void generateHeader(Bill transaction, Document document) {
         try {
             Chunk cell = new Chunk("Cell :", normalFont);
             Chunk contactOne = new Chunk("9290896562,", normalFont);
@@ -86,8 +84,9 @@ public class FirstPdf {
             name.setUnderline(0.1f, -2f);
 
             Chunk dateTitle = new Chunk("Date   :", normalFont);
-            Chunk dateValue = new Chunk(transaction.getTransactionDate()
-                    .toString(), normalFont);
+            Chunk dateValue = new Chunk(
+                    new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()),
+                    normalFont);
             dateValue.setUnderline(0.1f, -2f);
 
             document.add(cell);
@@ -97,7 +96,7 @@ public class FirstPdf {
             document.add(title);
             document.add(location);
             Paragraph para = new Paragraph();
-            addEmptyLine(para, 6);
+            addEmptyLine(para, 2);
             document.add(para);
 
             document.add(mrTitle);
@@ -110,7 +109,7 @@ public class FirstPdf {
         }
     }
 
-    private void generateBody(Transaction transaction, Document document) {
+    private void generateBody(Bill transaction, Document document) {
         try {
             PdfPTable table = new PdfPTable(4); // 3 columns.
 
@@ -129,11 +128,11 @@ public class FirstPdf {
             table.addCell(rate);
             table.addCell(amount);
 
-            Set<Sale> sales = transaction.getSales();
+            java.util.List<ItemResource>  sales = transaction.getItemResources();
 
-            for (Sale sale : sales) {
+            for (ItemResource sale : sales) {
                 PdfPCell particularsValue = new PdfPCell(new Paragraph(sale
-                        .getItem().getName(), redFont));
+                        .getName(), redFont));
                 PdfPCell quantityValue = new PdfPCell(new Paragraph(sale
                         .getQuantity().toString(), redFont));
                 PdfPCell rateValue = new PdfPCell(new Paragraph(sale
@@ -154,10 +153,10 @@ public class FirstPdf {
         }
     }
 
-    private void generateFooter(Transaction transaction, Document document) {
+    private void generateFooter(Bill transaction, Document document) {
         try {
             document.add(new Chunk("Total Amount:", normalFont));
-            document.add(new Chunk("800", normalFont));
+            document.add(new Chunk(transaction.getTotalAmount().toString(), normalFont));
             document.add(new Paragraph());
             document.add(new Chunk("Signature :", normalFont));
         } catch (Exception e) {
@@ -223,7 +222,7 @@ public class FirstPdf {
         subCatPart.add(new Paragraph("Paragraph 3"));
 
         // add a list
-        createList(subCatPart);
+        //createList(subCatPart);
         Paragraph paragraph = new Paragraph();
         addEmptyLine(paragraph, 5);
         subCatPart.add(paragraph);
@@ -283,13 +282,13 @@ public class FirstPdf {
 
     }
 
-    private static void createList(Section subCatPart) {
+   /* private static void createList(Section subCatPart) {
         List list = new List(true, false, 10);
         list.add(new ListItem("First point"));
         list.add(new ListItem("Second point"));
         list.add(new ListItem("Third point"));
         subCatPart.add(list);
-    }
+    }*/
 
     private static void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
