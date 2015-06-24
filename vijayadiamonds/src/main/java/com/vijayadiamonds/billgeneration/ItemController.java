@@ -1,18 +1,28 @@
 package com.vijayadiamonds.billgeneration;
 
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.vijayadiamonds.mapper.ItemResourceMapper;
 import com.vijayadiamonds.model.Item;
 import com.vijayadiamonds.model.Item.Shape;
 import com.vijayadiamonds.resource.ItemResource;
 import com.vijayadiamonds.service.ItemService;
 import com.vijayadiamonds.service.ShapeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/item")
@@ -30,7 +40,7 @@ public class ItemController {
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Set<ItemResource> getAllItems() {
-        Set resources = itemService.getAllItems().stream()
+        Set<ItemResource> resources = itemService.getAllItems().stream()
                 .map(itemResourceMapper).collect(Collectors.toSet());
         return resources;
     }
@@ -81,12 +91,18 @@ public class ItemController {
     @RequestMapping(value = "/getbynameandshape", method = RequestMethod.GET)
     @ResponseBody
     public Item getItemByNameAndShape(@RequestParam("name") String name,
-                                      @RequestParam("shape") String shape) {
+            @RequestParam("shape") String shape) {
         System.out.println(name + shape);
-        Item i = itemService.getItemByNameAndShape(name, shapeService.getShapeNameFromValue(shape));
+        Item i = itemService.getItemByNameAndShape(name,
+                shapeService.getShapeNameFromValue(shape));
         // System.out.println(i.getUnit());
         return i;
     }
 
+    @RequestMapping(value = "{name}/shapes")
+    @ResponseBody
+    public Set<String> getShapesForItem(@PathVariable String name) {
+        return itemService.getShapesByName(name);
+    }
 
 }

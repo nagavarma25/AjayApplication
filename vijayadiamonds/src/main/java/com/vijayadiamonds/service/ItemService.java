@@ -13,7 +13,8 @@ public interface ItemService {
     /**
      * Get a {@link Item} which has the id given
      *
-     * @param id id of the {@link Item}
+     * @param id
+     *            id of the {@link Item}
      * @return
      */
     public Item getItemById(Long id);
@@ -28,7 +29,8 @@ public interface ItemService {
     /**
      * Save an {@link Item} to the database
      *
-     * @param item {@link Item} to be saved
+     * @param item
+     *            {@link Item} to be saved
      * @return
      */
     public Item addItem(Item item);
@@ -43,9 +45,20 @@ public interface ItemService {
     /**
      * Returns an {@link Item} by it's name and shape
      *
-     * @param name  Name of the {@link Item}
-     * @param shape Shape of the {@link Item}
+     * @param name
+     *            Name of the {@link Item}
+     * @param shape
+     *            Shape of the {@link Item}
      * @return
      */
     Item getItemByNameAndShape(String name, Shape shape);
+
+    /**
+     * Get all the shapes of a {@link Item}
+     * 
+     * @param name
+     *            Name of the {@link item}
+     * @return Collection of existing shapes of a {@link Item}
+     */
+    Set<String> getShapesByName(String name);
 }

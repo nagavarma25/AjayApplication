@@ -2,8 +2,10 @@ package com.vijayadiamonds.model;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,6 +46,7 @@ public class Customer {
     private String address;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<Transaction> transactions = new HashSet<Transaction>();
 
     public Long getId() {

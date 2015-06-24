@@ -11,7 +11,8 @@
         Name : <input type="text" ng-model="selectedItem.name"
                       typeahead="name for name  in itemnames | filter:$viewValue "
                       class="form-control" placeholder="item name"
-                      class="form-control  input-sm">
+                      class="form-control  input-sm"
+                      typeahead-on-select='getShapesByName()'>
     </div>
     <div class="form-group ">
         Shape : <input type="text" ng-model="selectedItem.shape"

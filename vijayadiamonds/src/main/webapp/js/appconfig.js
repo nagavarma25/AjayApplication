@@ -57,6 +57,11 @@ angular.module('routerApp').config(
                 url: '/customertransactions/:customerId',
                 templateUrl: 'customer/transactions',
                 controller: 'custtransactionController'
+            })
+            .state('billpreview', {
+                url: '/billpreview/:transactionId',
+                templateUrl: 'bill/preview',
+                controller: 'billController'
             });
 
     });

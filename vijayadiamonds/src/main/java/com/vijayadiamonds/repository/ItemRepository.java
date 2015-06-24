@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Set;
+import java.lang.String;
+import java.util.List;
 
 /**
  * Repository class used to interact with {@link Item} entity
@@ -20,4 +22,6 @@ public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
     Set<String> getItemNames();
 
     Item findByNameAndShape(String name, Shape shape);
+
+    List<Item> findByName(String name);
 }

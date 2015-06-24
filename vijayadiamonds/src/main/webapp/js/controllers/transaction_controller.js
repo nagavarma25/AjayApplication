@@ -1,7 +1,7 @@
 //Controller for transaction related operations
 angular.module('routerApp').controller(
     "transactionController",
-    function ($scope, $http) {
+    function ($scope, $http, $location) {
 
         $scope.divshow = true;
         $scope.selectedItem = "";
@@ -12,11 +12,11 @@ angular.module('routerApp').controller(
         }).error(function (error) {
             $scope.message = "Error in fetching";
         });
-        $http.get("/item/allshapes").success(function (response) {
+        /*$http.get("/item/allshapes").success(function (response) {
             $scope.shapes = response;
         }).error(function (error) {
             $scope.message = "Error in fetching";
-        });
+        });*/
         $http.get("/item/all").success(function (response) {
             $scope.items = response;
         }).error(function (error) {
@@ -47,6 +47,17 @@ angular.module('routerApp').controller(
             $scope.bill.totalAmount = calculateTotalAmount($scope.actualItems);
         };
 
+        $scope.getShapesByName = function(){
+        	$http.get(
+                    "/item/"
+                    + $scope.selectedItem.name + "/shapes"
+                    ).success(function (response) {
+                    	 $scope.shapes =  response;
+                }).error(function (error) {
+                    $scope.message = "Error in fetching";
+                });
+        };
+        
         $scope.getItemByNameandShape = function () {
             $http.get(
                     "/item/getbynameandshape?name="
@@ -68,10 +79,13 @@ angular.module('routerApp').controller(
                 function (response) {
                     $scope.actualItems = [];
                     $scope.divshow = true;
+                    $scope.transactionId = response;
                     $scope.message = "Transaction Added";
                 }).error(function (error) {
                     $scope.message = "error";
-                })
+                });
+            var transactionId = $scope.transactionId;
+            $location.path('billpreview/' + transactionId);
         };
 
         calculateTotalAmount = function (items) {

@@ -1,13 +1,16 @@
 package com.vijayadiamonds.service.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.vijayadiamonds.model.Item;
 import com.vijayadiamonds.model.Item.Shape;
 import com.vijayadiamonds.repository.ItemRepository;
 import com.vijayadiamonds.service.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 /**
  * Implementation for {@link ItemService}
@@ -60,4 +63,12 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findByNameAndShape(name, shape);
     }
 
+    public Set<String> getShapesByName(final String name) {
+        List<Item> items = itemRepository.findByName(name);
+        Set<String> shapes = new HashSet<String>();
+        for (Item item : items) {
+            shapes.add(item.getShape().toString());
+        }
+        return shapes;
+    }
 }

@@ -82,6 +82,11 @@ public class HomeController {
     public String partialHome(Locale locale, Model model) {
         return "partial-home";
     }
+    
+    @RequestMapping(value = "bill/preview", method = RequestMethod.GET)
+    public String billPreview(Locale locale, Model model) {
+        return "billpreview";
+    }
 
 
 }

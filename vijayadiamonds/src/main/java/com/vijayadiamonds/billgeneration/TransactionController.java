@@ -1,10 +1,12 @@
 package com.vijayadiamonds.billgeneration;
 
+import com.vijayadiamonds.mapper.TransactionResourceMapper;
 import com.vijayadiamonds.model.Item;
 import com.vijayadiamonds.model.Sale;
 import com.vijayadiamonds.model.Transaction;
 import com.vijayadiamonds.resource.Bill;
 import com.vijayadiamonds.resource.ItemResource;
+import com.vijayadiamonds.resource.TransactionResource;
 import com.vijayadiamonds.service.ItemService;
 import com.vijayadiamonds.service.SaleService;
 import com.vijayadiamonds.service.ShapeService;
@@ -33,6 +35,9 @@ public class TransactionController {
     @Autowired
     private ShapeService shapeService;
 
+    @Autowired
+    private TransactionResourceMapper transactionResourceMapper;
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String loadAddPage(Locale locale, Model model) {
         return "addtransaction";
@@ -58,8 +63,8 @@ public class TransactionController {
                     itemResource.getSellingPrice());
             saleService.addSale(sale);
         }
-       GenerateBill generateBill = new GenerateBill();
-       generateBill.generateBill(bill);
+        GenerateBill generateBill = new GenerateBill();
+        generateBill.generateBill(bill);
         return transaction.getId();
     }
 
@@ -80,5 +85,15 @@ public class TransactionController {
         System.out.println("Inside put method");
         transactionService.settleTransaction(transactionId);
         return transactionId;
+    }
+
+    @RequestMapping(value = "/{transactionId}")
+    @ResponseBody
+    public TransactionResource getTransactionDetails(
+            @PathVariable Long transactionId) {
+        Transaction transaction = transactionService
+                .getTransaction(transactionId);
+        return transactionResourceMapper.apply(transaction);
+
     }
 }
