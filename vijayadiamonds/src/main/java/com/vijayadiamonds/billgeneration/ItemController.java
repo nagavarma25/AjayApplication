@@ -52,7 +52,7 @@ public class ItemController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Item addItem(@RequestBody ItemResource itemResource) {
+    public ItemResource addItem(@RequestBody ItemResource itemResource) {
         String itemName = Objects.requireNonNull(itemResource.getName(),
                 "Item name cannot be null");
         String itemShape = Objects.requireNonNull(itemResource.getShape(),
@@ -63,7 +63,7 @@ public class ItemController {
                 "Unit price of the item cannot be null");
         Item item = new Item(itemName, unit, unitPrice,
                 shapeService.getShapeNameFromValue(itemShape));
-        return itemService.addItem(item);
+        return itemResourceMapper.apply(itemService.addItem(item));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -90,13 +90,14 @@ public class ItemController {
 
     @RequestMapping(value = "/getbynameandshape", method = RequestMethod.GET)
     @ResponseBody
-    public Item getItemByNameAndShape(@RequestParam("name") String name,
+    public ItemResource getItemByNameAndShape(
+            @RequestParam("name") String name,
             @RequestParam("shape") String shape) {
         System.out.println(name + shape);
         Item i = itemService.getItemByNameAndShape(name,
                 shapeService.getShapeNameFromValue(shape));
         // System.out.println(i.getUnit());
-        return i;
+        return itemResourceMapper.apply(i);
     }
 
     @RequestMapping(value = "{name}/shapes")

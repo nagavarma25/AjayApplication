@@ -1,14 +1,18 @@
 package com.vijayadiamonds.billgeneration;
 
+import com.vijayadiamonds.mapper.CustomerResourceMapper;
 import com.vijayadiamonds.model.Customer;
 import com.vijayadiamonds.model.Transaction;
+import com.vijayadiamonds.resource.CustomerResource;
 import com.vijayadiamonds.service.CustomerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Janardhan
@@ -19,6 +23,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private CustomerResourceMapper customerResourceMapper;
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String loadAddPage() {
@@ -32,29 +39,31 @@ public class CustomerController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public Customer addCustomer(@RequestBody Customer customer) {
+    public CustomerResource addCustomer(@RequestBody Customer customer) {
         Objects.requireNonNull(customer.getName(), "Customer name required");
         Objects.requireNonNull(customer.getPhoneNumber(),
                 " Customer phone number required");
         Objects.requireNonNull(customer.getAddress(),
                 "Customer address required");
-        return customerService.addCustomer(customer);
+        return customerResourceMapper.apply(customerService
+                .addCustomer(customer));
 
     }
 
     @RequestMapping(value = "/{customerId}", produces = "application/json")
     @ResponseBody
-    public Customer getCustomer(@PathVariable Long customerId) {
+    public CustomerResource getCustomer(@PathVariable Long customerId) {
         System.out.println("get");
         Customer cust = customerService.getCustomer(customerId);
-        return cust;
+        return customerResourceMapper.apply(cust);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Set<Customer> allCustomers() {
+    public Set<CustomerResource> allCustomers() {
         System.out.println("get");
-        return customerService.getAllCustomers();
+        return customerService.getAllCustomers().stream()
+                .map(customerResourceMapper).collect(Collectors.toSet());
     }
 
     @RequestMapping(value = "/{customerId}/transactions", method = RequestMethod.GET)
