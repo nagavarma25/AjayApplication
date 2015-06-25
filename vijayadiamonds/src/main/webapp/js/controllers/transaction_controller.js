@@ -80,12 +80,11 @@ angular.module('routerApp').controller(
                     $scope.actualItems = [];
                     $scope.divshow = true;
                     $scope.transactionId = response;
-                    $scope.message = "Transaction Added";
+                    var transactionId = $scope.transactionId;
+                    $location.path('billpreview/' + transactionId);
                 }).error(function (error) {
                     $scope.message = "error";
                 });
-            var transactionId = $scope.transactionId;
-            $location.path('billpreview/' + transactionId);
         };
 
         calculateTotalAmount = function (items) {

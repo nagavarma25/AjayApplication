@@ -65,6 +65,7 @@ public class TransactionController {
         }
         GenerateBill generateBill = new GenerateBill();
         generateBill.generateBill(bill);
+        System.out.println(transaction.getId()+"Tid");
         return transaction.getId();
     }
 
