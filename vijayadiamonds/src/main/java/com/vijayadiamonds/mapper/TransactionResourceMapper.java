@@ -30,7 +30,7 @@ public class TransactionResourceMapper implements
             itemResource.setQuantity(sale.getQuantity());
             itemResources.add(itemResource);
         }
-        return new TransactionResource(itemResources, t.getTotalAmount(),
+        return new TransactionResource(t.getId(),itemResources, t.getTotalAmount(),
                 t.getPaidAmount(), t.getCustomer());
     }
 

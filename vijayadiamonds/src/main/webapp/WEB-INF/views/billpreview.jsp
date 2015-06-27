@@ -28,6 +28,6 @@
         <div class="row col-md-offset-3 col-md-8"><span class="pull-left span-5"><strong>Paid
                     Amount : </strong>{{transaction.paidAmount}}</span></div>
         <div class="row col-md-offset-3 col-md-8"><span class="pull-left span-5"><strong>Signature
-                    : </strong></span><span class = "span-5 pull-right"><button> Generate Bill</button></span></div>
+                    : </strong></span><span class = "span-5 pull-right"><a href="/files/{{transaction.id}}"><input type="button" value="Bill Generate" /></a></span></div>
 </div>
 </div>

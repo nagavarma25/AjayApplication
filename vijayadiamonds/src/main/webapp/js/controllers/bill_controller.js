@@ -6,4 +6,13 @@ angular.module('routerApp').controller(
         .success(function (response) {
         	$scope.transaction = response;
         });
+    	
+    $scope.previewBill = function(){
+    	$http.get("/files").success(
+                function (response) {
+                    //$scope.shapes = response;
+                }).error(function (error) {
+                    $scope.message = "Error in fetching";
+                });
+    }
     });

@@ -5,6 +5,7 @@ import java.util.List;
 import com.vijayadiamonds.model.Customer;
 
 public class TransactionResource {
+	private Long id;
     private List<ItemResource> items;
     private Long totalAmount;
     private Long paidAmount;
@@ -14,8 +15,9 @@ public class TransactionResource {
 
     }
 
-    public TransactionResource(List<ItemResource> items, Long totalAmount,
+    public TransactionResource(Long id,List<ItemResource> items, Long totalAmount,
             Long paidAmount, Customer customer) {
+    	this.id = id;
         this.items = items;
         this.totalAmount = totalAmount;
         this.paidAmount = paidAmount;
@@ -23,7 +25,15 @@ public class TransactionResource {
 
     }
 
-    public List<ItemResource> getItems() {
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<ItemResource> getItems() {
         return items;
     }
 
