@@ -44,6 +44,11 @@ public class ItemController {
                 .map(itemResourceMapper).collect(Collectors.toSet());
         return resources;
     }
+    
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String loadAllItems() {
+        return "itemlist";
+    }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String loadAddPage() {
@@ -104,6 +109,12 @@ public class ItemController {
     @ResponseBody
     public Set<String> getShapesForItem(@PathVariable String name) {
         return itemService.getShapesByName(name);
+    }
+    
+    @RequestMapping(value = "/{itemId}")
+    @ResponseBody
+    public ItemResource getItem(@PathVariable Long itemId){
+    	return itemResourceMapper.apply(itemService.getItemById(itemId));
     }
 
 }

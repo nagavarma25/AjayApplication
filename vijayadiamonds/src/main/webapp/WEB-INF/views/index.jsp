@@ -25,6 +25,7 @@
 <script src="js/controllers/transaction_controller.js"></script>
 <script src="js/controllers/custtrans_controller.js"></script>
 <script src="js/controllers/bill_controller.js"></script>
+<script src="js/controllers/edititem_controller.js"></script>
 <!-- <script src="js/controllers/billgen_controller.js"></script> -->
 <script src="js/filters/camelcase_filter.js"></script>
 <script src="js/appconfig.js"></script>
@@ -47,8 +48,10 @@
     <ul class="nav nav-list col-md-2">
         <li><a ui-sref="home">Home</a></li>
         <li><a ui-sref="additem">Add item</a></li>
+        <li><a ui-sref="allitems">All items</a></li>
         <li><a ui-sref="edititem">Edit item</a></li>
         <li><a ui-sref="addcustomer">Add customer</a></li>
+        <li><a ui-sref="editcustomer">All customers</a></li>
         <li><a ui-sref="editcustomer">Edit customer</a></li>
         <li><a ui-sref="addtransaction">Add Transaction</a></li>
         <li><a ui-sref="edittransaction">Edit Transaction</a></li>
