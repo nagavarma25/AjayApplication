@@ -63,9 +63,9 @@ public class TransactionController {
                     itemResource.getSellingPrice());
             saleService.addSale(sale);
         }
-        GenerateBill generateBill = new GenerateBill();
+        /*GenerateBill generateBill = new GenerateBill();
         generateBill.generateBill(bill);
-        System.out.println(transaction.getId()+"Tid");
+        System.out.println(transaction.getId()+"Tid");*/
         return transaction.getId();
     }
 

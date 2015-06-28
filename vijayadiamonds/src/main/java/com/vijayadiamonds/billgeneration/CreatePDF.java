@@ -26,15 +26,15 @@ public class CreatePDF {
 			Font.BOLD);
 	private static Font TIME_ROMAN_SMALL = new Font(
 			Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
+	private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 15,
 			Font.BOLD);
-	private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 7,
+	private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 5,
 			Font.BOLD);
 	private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 5,
 			Font.BOLD);
 	private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 6,
 			Font.BOLD);
-	private static Font normalFont = new Font(Font.FontFamily.TIMES_ROMAN, 7,
+	private static Font normalFont = new Font(Font.FontFamily.TIMES_ROMAN, 5,
 			Font.NORMAL);
 
 	/**
@@ -45,9 +45,9 @@ public class CreatePDF {
 		Document document = null;
 
 		try {
-			 Rectangle rect = new Rectangle(400, 500);
-	            rect.setBorder(Rectangle.BOX);
-	            rect.setBorderWidth(1);
+			Rectangle rect = new Rectangle(300, 500);
+			rect.setBorder(Rectangle.BOX);
+			rect.setBorderWidth(1);
 			document = new Document(rect, 10, 10, 10, 10);
 			PdfWriter.getInstance(document, new FileOutputStream(file));
 			document.open();
@@ -75,16 +75,15 @@ public class CreatePDF {
 			Chunk cell = new Chunk("Cell :", normalFont);
 			Chunk contactOne = new Chunk("9290896562,", normalFont);
 			Chunk contactTwo = new Chunk("9550024166", normalFont);
-			Paragraph  title = new Paragraph (" VIJAYA DIAMONDS", catFont);
+			Paragraph title = new Paragraph(" VIJAYA DIAMONDS", catFont);
 			title.setLeading(0, 1);
-			title.setIndentationLeft(100);
-			/*
-			 * Paragraph title = new Paragraph("VIJAYA DIAMONDS",catFont);
-			 * title.setAlignment(50); title.setIndentationRight(50);
-			 */
+			title.setIndentationLeft(50);
 
 			Chunk location = new Chunk("Secundarabad", subFont);
-			location.setTextRise(-5f);
+			location.setTextRise(-3f);
+
+			Paragraph loPara = new Paragraph(location);
+			loPara.setIndentationLeft(180);
 
 			Chunk mrTitle = new Chunk("M/s    :", normalFont);
 			Chunk name = new Chunk(transaction.getCustomer().getName(),
@@ -102,7 +101,7 @@ public class CreatePDF {
 			document.add(contactTwo);
 			document.add(new Paragraph());
 			document.add(title);
-			document.add(location);
+			document.add(loPara);
 			Paragraph para = new Paragraph();
 			addEmptyLine(para, 1);
 			document.add(para);
@@ -121,7 +120,7 @@ public class CreatePDF {
 		try {
 			PdfPTable table = new PdfPTable(4); // 3 columns.
 
-			table.setWidthPercentage(90);
+			table.setWidthPercentage(100);
 			float[] columnWidths = { 3f, 1f, 1f, 2f };
 			table.setWidths(columnWidths);
 
@@ -144,16 +143,17 @@ public class CreatePDF {
 
 			for (Sale sale : sales) {
 				PdfPCell particularsValue = new PdfPCell(new Paragraph(sale
-						.getItem().getName(), redFont));
+						.getItem().getName(), normalFont));
 				particularsValue.setHorizontalAlignment(Element.ALIGN_CENTER);
 				PdfPCell quantityValue = new PdfPCell(new Paragraph(sale
-						.getQuantity().toString(), redFont));
+						.getQuantity().toString(), normalFont));
 				quantityValue.setHorizontalAlignment(Element.ALIGN_CENTER);
 				PdfPCell rateValue = new PdfPCell(new Paragraph(sale
-						.getSellingPrice().toString(), redFont));
+						.getSellingPrice().toString(), normalFont));
 				rateValue.setHorizontalAlignment(Element.ALIGN_CENTER);
+				Long totalAmount = sale.getQuantity() * sale.getSellingPrice();
 				PdfPCell amountValue = new PdfPCell(new Paragraph(
-						sale.getQuantity() * sale.getSellingPrice()));
+						totalAmount.toString(), normalFont));
 				amountValue.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 				table.addCell(particularsValue);
@@ -172,10 +172,20 @@ public class CreatePDF {
 	private static void generateFooter(Transaction transaction,
 			Document document) {
 		try {
-			document.add(new Chunk("Total Amount:", normalFont));
-			document.add(new Chunk("800", normalFont));
+			document.add(new Chunk("Total Amount   :", normalFont));
+			document.add(new Chunk(transaction.getTotalAmount().toString(),
+					normalFont));
 			document.add(new Paragraph());
-			document.add(new Chunk("Signature :", normalFont));
+			document.add(new Chunk("Paid Amount    :", normalFont));
+			document.add(new Chunk(transaction.getPaidAmount().toString(),
+					normalFont));
+			document.add(new Paragraph());
+			document.add(new Chunk("Balance Amount :", normalFont));
+			Long balAmount = transaction.getTotalAmount()
+					- transaction.getPaidAmount();
+			document.add(new Chunk(balAmount.toString(), normalFont));
+			document.add(new Paragraph());
+			document.add(new Chunk("Signature      :", normalFont));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

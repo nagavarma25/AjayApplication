@@ -31,7 +31,7 @@ public class TransactionResourceMapper implements
             itemResources.add(itemResource);
         }
         return new TransactionResource(t.getId(),itemResources, t.getTotalAmount(),
-                t.getPaidAmount(), t.getCustomer());
+                t.getPaidAmount(), t.getCustomer() , t.getTransactionDate());
     }
 
 }

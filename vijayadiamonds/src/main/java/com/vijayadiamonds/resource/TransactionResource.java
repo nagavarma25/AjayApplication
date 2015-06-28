@@ -1,5 +1,6 @@
 package com.vijayadiamonds.resource;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.vijayadiamonds.model.Customer;
@@ -10,19 +11,21 @@ public class TransactionResource {
     private Long totalAmount;
     private Long paidAmount;
     private Customer customer;
+    private Calendar transactionDate;
+    
 
     public TransactionResource() {
 
     }
 
     public TransactionResource(Long id,List<ItemResource> items, Long totalAmount,
-            Long paidAmount, Customer customer) {
+            Long paidAmount, Customer customer, Calendar transactionDate) {
     	this.id = id;
         this.items = items;
         this.totalAmount = totalAmount;
         this.paidAmount = paidAmount;
         this.customer = customer;
-
+        this.transactionDate = transactionDate;
     }
 
     public Long getId() {
@@ -65,4 +68,13 @@ public class TransactionResource {
         this.customer = customer;
     }
 
+	public Calendar getTransactionDate() {
+		return transactionDate;
+	}
+
+	public void setTransactionDate(Calendar transactionDate) {
+		this.transactionDate = transactionDate;
+	}
+
+    
 }
