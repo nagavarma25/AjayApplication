@@ -24,8 +24,8 @@
             </tr>
             <tr ng-repeat="item in transaction.items">
                 <td>{{item.name}}</td>
-                <td>{{item.quantity}}</td>
-                <td>{{item.sellingPrice}}</td>
+                <td>{{item.quantity}} {{item.unit}}s</td>
+                <td>{{item.sellingPrice}} / {{item.unit}}</td>
                 <td>{{item.quantity*item.sellingPrice}}</td>
             </tr>
         </table>

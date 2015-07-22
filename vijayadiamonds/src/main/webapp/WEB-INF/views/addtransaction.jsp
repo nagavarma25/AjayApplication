@@ -69,7 +69,7 @@
         <tr ng-repeat="actualItem in actualItems">
             <td>{{actualItem.name}}</td>
             <td>{{actualItem.shape}}</td>
-            <td>{{actualItem.sellingPrice}}</td>
+            <td>{{actualItem.sellingPrice}} </td>
             <td>{{actualItem.quantity}}</td>
             <td>{{(actualItem.sellingPrice)*(actualItem.quantity)}}</td>
         </tr>
@@ -80,6 +80,9 @@
         :{{bill.totalAmount}}</div>
     <div class="form-group text-small  col-md-3 col-md-offset-7">
        <input type="number" ng-model="bill.paidAmount"  class="form-control  input-sm" placeholder="Paid amount">
+    </div>
+    <div class="form-group text-small  col-md-3 col-md-offset-7">
+       <input type="text" ng-model="bill.worker"  class="form-control  input-sm" placeholder="Worker name">
     </div>
     <div class="form-group col-md-5 col-md-offset-4">
         <button ng-click="saveTransaction()"  class="btn btn-primary">Save</button>

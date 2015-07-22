@@ -1,5 +1,17 @@
 package com.vijayadiamonds.billgeneration;
 
+import java.util.Calendar;
+import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.vijayadiamonds.mapper.TransactionResourceMapper;
 import com.vijayadiamonds.model.Item;
 import com.vijayadiamonds.model.Sale;
@@ -11,15 +23,6 @@ import com.vijayadiamonds.service.ItemService;
 import com.vijayadiamonds.service.SaleService;
 import com.vijayadiamonds.service.ShapeService;
 import com.vijayadiamonds.service.TransactionService;
-import com.vijayadiamonds.utils.GenerateBill;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Calendar;
-import java.util.Locale;
 
 @Controller
 @RequestMapping(value = "/transaction")
@@ -53,7 +56,7 @@ public class TransactionController {
     public Long saveTransaction(@RequestBody Bill bill) {
         Transaction transaction = new Transaction(bill.getCustomer(),
                 bill.getTotalAmount(), bill.getPaidAmount(),
-                Calendar.getInstance(), Calendar.getInstance(), "");
+                Calendar.getInstance(), Calendar.getInstance(), "" , bill.getWorker());
         transactionService.addTransaction(transaction);
         for (ItemResource itemResource : bill.getItemResources()) {
             Item item = itemService

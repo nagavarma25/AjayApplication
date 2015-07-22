@@ -17,7 +17,7 @@ angular.module('routerApp').controller(
 				$scope.message = "Error in fetching";
 			});
 
-			$scope.units = [ 'Carrat', 'Gram', 'Quantity' ];
+			$scope.units = [ 'Carrat', 'Gram', 'Piece' ];
 
 			$scope.additem = function() {
 				$http.post("/item/add", $scope.item).success(

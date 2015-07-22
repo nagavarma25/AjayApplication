@@ -74,7 +74,8 @@ angular.module('routerApp').controller(
         $scope.saveTransaction = function () {
             $scope.bill.itemResources = $scope.actualItems;
             $scope.bill.customer = $scope.customer;
-            alert($scope.customer.id);
+            alert($scope.bill.paidAmount+"paid");
+            alert($scope.bill.worker);
             $http.post("/transaction/add", $scope.bill).success(
                 function (response) {
                     $scope.actualItems = [];

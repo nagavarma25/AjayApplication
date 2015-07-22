@@ -146,10 +146,10 @@ public class CreatePDF {
 						.getItem().getName(), normalFont));
 				particularsValue.setHorizontalAlignment(Element.ALIGN_CENTER);
 				PdfPCell quantityValue = new PdfPCell(new Paragraph(sale
-						.getQuantity().toString(), normalFont));
+						.getQuantity().toString()+" "+sale.getItem().getUnit()+"s", normalFont));
 				quantityValue.setHorizontalAlignment(Element.ALIGN_CENTER);
 				PdfPCell rateValue = new PdfPCell(new Paragraph(sale
-						.getSellingPrice().toString(), normalFont));
+						.getSellingPrice().toString()+" /" + sale.getItem().getUnit(), normalFont));
 				rateValue.setHorizontalAlignment(Element.ALIGN_CENTER);
 				Long totalAmount = sale.getQuantity() * sale.getSellingPrice();
 				PdfPCell amountValue = new PdfPCell(new Paragraph(

@@ -9,6 +9,7 @@ public class Bill {
     private Long totalAmount;
     private Long paidAmount;
     private Customer customer;
+    private String worker;
 
     public List<ItemResource> getItemResources() {
         return itemResources;
@@ -41,5 +42,13 @@ public class Bill {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+	public String getWorker() {
+		return worker;
+	}
+
+	public void setWorker(String worker) {
+		this.worker = worker;
+	}
 
 }
