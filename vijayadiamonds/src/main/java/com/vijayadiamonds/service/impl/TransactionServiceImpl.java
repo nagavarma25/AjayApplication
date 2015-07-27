@@ -1,13 +1,15 @@
 package com.vijayadiamonds.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.vijayadiamonds.model.Customer;
 import com.vijayadiamonds.model.Transaction;
 import com.vijayadiamonds.repository.TransactionRepository;
 import com.vijayadiamonds.service.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -16,13 +18,13 @@ public class TransactionServiceImpl implements TransactionService {
     private TransactionRepository transactionRepository;
 
     @Override
-    public Transaction addTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
+    public Optional<Transaction> addTransaction(Transaction transaction) {
+        return Optional.ofNullable(transactionRepository.save(transaction));
     }
 
     @Override
-    public Transaction getTransaction(Long id) {
-        return transactionRepository.findOne(id);
+    public Optional<Transaction> getTransaction(Long id) {
+        return Optional.ofNullable(transactionRepository.findOne(id));
     }
 
     @Override

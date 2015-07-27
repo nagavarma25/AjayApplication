@@ -3,6 +3,7 @@ package com.vijayadiamonds.service;
 import com.vijayadiamonds.model.Item;
 import com.vijayadiamonds.model.Item.Shape;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -17,7 +18,7 @@ public interface ItemService {
      *            id of the {@link Item}
      * @return
      */
-    public Item getItemById(Long id);
+    public Optional<Item> getItemById(Long id);
 
     /**
      * Returns collection of all {@link Item} in the database
@@ -33,7 +34,7 @@ public interface ItemService {
      *            {@link Item} to be saved
      * @return
      */
-    public Item addItem(Item item);
+    public Optional<Item> addItem(Item item);
 
     /**
      * Returns name of all {@link Item} in database
@@ -51,7 +52,7 @@ public interface ItemService {
      *            Shape of the {@link Item}
      * @return
      */
-    Item getItemByNameAndShape(String name, Shape shape);
+    Optional<Item> getItemByNameAndShape(String name, Shape shape);
 
     /**
      * Get all the shapes of a {@link Item}

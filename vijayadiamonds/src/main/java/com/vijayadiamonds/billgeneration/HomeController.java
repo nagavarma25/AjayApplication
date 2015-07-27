@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vijayadiamonds.exception.ResourceNotFound;
 import com.vijayadiamonds.mapper.ItemResourceMapper;
 import com.vijayadiamonds.model.Transaction;
 import com.vijayadiamonds.service.ItemService;
@@ -43,7 +45,7 @@ public class HomeController {
 	private ItemService itemService;
 	@Autowired
 	private ItemResourceMapper itemResourceMapper;
-	@Autowired 
+	@Autowired
 	private TransactionService transactionService;
 
 	/**
@@ -105,27 +107,31 @@ public class HomeController {
 		return "billpreview";
 	}
 
-	
 	@RequestMapping(value = "/files/{transactionId}")
 	public void downloadPDF(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable Long transactionId)
-			throws IOException {
-		System.out.println("transactionId"+transactionId);
-		Transaction transaction = transactionService.getTransaction(transactionId);
+			throws IOException, ResourceNotFound {
+		System.out.println("transactionId" + transactionId);
+		Optional<Transaction> transaction = transactionService
+				.getTransaction(transactionId);
+		transaction.orElseThrow(() -> new ResourceNotFound(
+				"Transaction not available for Id :" + transactionId));
 		final ServletContext servletContext = request.getSession()
 				.getServletContext();
 		final File tempDirectory = (File) servletContext
 				.getAttribute("javax.servlet.context.tempdir");
 		final String temperotyFilePath = tempDirectory.getAbsolutePath();
 
-		String fileName = transaction.getCustomer().getName()+transaction.getId();
+		String fileName = transaction.get().getCustomer().getName()
+				+ transaction.get().getId();
 		response.setContentType("application/pdf");
 		response.setHeader("Content-disposition", "attachment; filename="
 				+ fileName);
 
 		try {
 
-			CreatePDF.createPDF(temperotyFilePath + "\\" + fileName, transaction);
+			CreatePDF.createPDF(temperotyFilePath + "\\" + fileName,
+					transaction.get());
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			baos = convertPDFToByteArrayOutputStream(temperotyFilePath + "\\"
 					+ fileName);
