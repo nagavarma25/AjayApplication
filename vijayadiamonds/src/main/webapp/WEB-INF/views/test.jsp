@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Example of Bootstrap 3 Accordion</title>
+    <title>Service Example</title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
@@ -10,6 +10,9 @@
 
     <script type="text/javascript" src="js/angular/angular.js"></script>
     <script src="js/angular/bootstrap.min.js"></script>
+    <script src = "js/services/MathService.js"></script>
+    <script src = "js/services/CalculatorService.js"></script>
+    <script src = "js/controllers/CalculatorController.js"></script>
     <style type="text/css">
         .bs-example {
             margin: 20px;
@@ -17,25 +20,15 @@
     </style>
 </head>
 <body>
-<table class="table table-hover">
-    <thead>
-    <th></th>
-    <th></th>
-    <th></th>
-    </thead>
-
-    <tbody>
-    <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-        <td>Some Stuff</td>
-        <td>Some more stuff</td>
-        <td>And some more</td>
-    </tr>
-    <tr>
-        <td colspan="3">
-            <div id="accordion" class="collapse">Hidden by default</div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div ng-app="test">
+    <div ng-controller="CalculatorController">
+        Enter a number:
+        <input type="number" ng-model="number" />
+        <button ng-click="doSquare()">X<sup>2</sup></button>
+        <button ng-click="doCube()">X<sup>3</sup></button>
+         
+        <div>Answer: {{answer}}</div>
+    </div>
+</div>
 </body>
 </html>                                                                             
